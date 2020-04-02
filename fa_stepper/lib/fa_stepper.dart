@@ -138,6 +138,7 @@ class FAStepper extends StatefulWidget {
     this.onStepTapped,
     this.onStepContinue,
     this.onStepCancel,
+    this.contentPaddingWhenHorizontal = EdgeInsets.zero,
     this.controlsBuilder,
   })  : assert(steps != null),
         assert(type != null),
@@ -187,6 +188,9 @@ class FAStepper extends StatefulWidget {
   ///
   /// If null, the 'cancel' button will be disabled.
   final VoidCallback onStepCancel;
+
+  /// Padding around the content of each step
+  final EdgeInsets contentPaddingWhenHorizontal;
 
   /// The callback for creating custom controls.
   ///
@@ -720,7 +724,7 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
           child: ListView(
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
-            padding: const EdgeInsets.all(24.0),
+            padding: widget.contentPaddingWhenHorizontal,
             children: <Widget>[
               AnimatedSize(
                 curve: Curves.fastOutSlowIn,
