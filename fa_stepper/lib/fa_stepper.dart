@@ -74,7 +74,7 @@ class FAStep {
   /// Creates a step for a [FAStepper].
   ///
   /// The [title], [content], and [state] arguments must not be null.
-  FAStep({
+  const FAStep({
     @required this.title,
     this.subtitle,
     @required this.content,
@@ -100,10 +100,10 @@ class FAStep {
 
   /// The state of the step which determines the styling of its components
   /// and whether steps are interactive.
-  FAStepstate state;
+  final FAStepstate state;
 
   /// Whether or not the step is active. The flag only influences styling.
-  bool isActive;
+  final bool isActive;
 }
 
 /// A material stepper widget that displays progress through a sequence of
@@ -127,7 +127,7 @@ class FAStepper extends StatefulWidget {
   /// new one.
   ///
   /// The [steps], [type], and [currentStep] arguments must not be null.
-  FAStepper({
+  const FAStepper({
     Key key,
     @required this.steps,
     this.physics,
@@ -172,9 +172,9 @@ class FAStepper extends StatefulWidget {
   final Color stepNumberColor;
 
   /// The index into [steps] of the current step whose content is displayed.
-  int currentStep;
+  final int currentStep;
 
-  double titleHeight;
+  final double titleHeight;
 
   /// The callback called when a step is tapped, with its index passed as
   /// an argument.
