@@ -4,8 +4,9 @@ library fa_stepper;
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
 import 'colors.dart';
 
 //   * mobile horizontal mode with adding/removing steps
@@ -258,7 +259,7 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
       (int i) => GlobalKey(),
     );
 
-    for (int i = 0; i < widget.steps.length; i += 1) _oldStates[i] = widget.steps[i].state;
+    for (var i = 0; i < widget.steps.length; i += 1) _oldStates[i] = widget.steps[i].state;
   }
 
   @override
@@ -266,7 +267,7 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
     super.didUpdateWidget(oldWidget);
     assert(widget.steps.length == oldWidget.steps.length);
 
-    for (int i = 0; i < oldWidget.steps.length; i += 1) _oldStates[i] = oldWidget.steps[i].state;
+    for (var i = 0; i < oldWidget.steps.length; i += 1) _oldStates[i] = oldWidget.steps[i].state;
   }
 
   bool _isFirst(int index) {
@@ -294,8 +295,8 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
   }
 
   Widget _buildCircleChild(int index, bool oldState) {
-    final FAStepstate state = oldState ? _oldStates[index] : widget.steps[index].state;
-    final bool isDarkActive = _isDark() && widget.steps[index].isActive;
+    final state = oldState ? _oldStates[index] : widget.steps[index].state;
+    final isDarkActive = _isDark() && widget.steps[index].isActive;
     assert(state != null);
     switch (state) {
       case FAStepstate.indexed:
@@ -323,7 +324,7 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
   }
 
   Color _circleColor(int index) {
-    final ThemeData themeData = Theme.of(context);
+    final themeData = Theme.of(context);
     if (!_isDark()) {
       if (widget.steps[index].state == FAStepstate.complete) {
         return IposColors.stepCompleteColor;
@@ -424,8 +425,8 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
 
     assert(cancelColor != null);
 
-    final ThemeData themeData = Theme.of(context);
-    final MaterialLocalizations localizations = MaterialLocalizations.of(context);
+    final themeData = Theme.of(context);
+    final localizations = MaterialLocalizations.of(context);
 
     // MirrorSystem mirrors = currentMirrorSystem();
 
@@ -458,8 +459,8 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
   }
 
   TextStyle _titleStyle(int index) {
-    final ThemeData themeData = Theme.of(context);
-    final TextTheme textTheme = themeData.textTheme;
+    final themeData = Theme.of(context);
+    final textTheme = themeData.textTheme;
 
     assert(widget.steps[index].state != null);
     switch (widget.steps[index].state) {
@@ -476,8 +477,8 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
   }
 
   TextStyle _subtitleStyle(int index) {
-    final ThemeData themeData = Theme.of(context);
-    final TextTheme textTheme = themeData.textTheme;
+    final themeData = Theme.of(context);
+    final textTheme = themeData.textTheme;
 
     assert(widget.steps[index].state != null);
     switch (widget.steps[index].state) {
@@ -782,10 +783,10 @@ class _TrianglePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final double base = size.width;
-    final double halfBase = size.width / 2.0;
-    final double height = size.height;
-    final List<Offset> points = <Offset>[
+    final base = size.width;
+    final halfBase = size.width / 2.0;
+    final height = size.height;
+    final points = <Offset>[
       Offset(0.0, height),
       Offset(base, height),
       Offset(halfBase, 0.0),
