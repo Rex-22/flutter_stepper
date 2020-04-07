@@ -44,7 +44,7 @@ class First extends StatelessWidget {
               size: 160.0,
               color: Colors.red,
             ),
-            Text("First Tab")
+            Text('First Tab')
           ],
         ),
       ),

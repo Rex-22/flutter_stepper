@@ -1,5 +1,6 @@
 import 'package:fa_stepper/fa_stepper.dart';
 import 'package:flutter/material.dart';
+
 import 'first.dart';
 import 'second.dart';
 import 'third.dart';
@@ -7,7 +8,7 @@ import 'third.dart';
 void main() {
   runApp(MaterialApp(
       // Title
-      title: "Simple Material App",
+      title: 'Simple Material App',
       // Home
       home: MyHome()));
 }
@@ -23,7 +24,7 @@ class MyHomeState extends State<MyHome> {
   List<FAStep> mySteps = [
     FAStep(
         // Title of the Step
-        title: //Text("Step 1"),
+        title: //Text('Step 1'),
             Column(
           children: <Widget>[
             Icon(
@@ -33,12 +34,12 @@ class MyHomeState extends State<MyHome> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 5),
-              child: Text("Step01"),
+              child: Text('Step01'),
             )
           ],
         ),
         // Content, it can be any widget here. Using basic Text for this example,
-        subtitle: Text("subT"),
+        subtitle: Text('subT'),
         content: First(),
         isActive: true),
     FAStep(
@@ -50,10 +51,10 @@ class MyHomeState extends State<MyHome> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 5),
-            child: Text("Step02"),
+            child: Text('Step02'),
           )
         ]),
-        content: Second(), //Text("World!"),
+        content: Second(), //Text('World!'),
         // You can change the style of the step icon i.e number, editing, etc.
         state: FAStepstate.complete, //FAStepState.complete,
         isActive: true),
@@ -66,11 +67,11 @@ class MyHomeState extends State<MyHome> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 5),
-            child: Text("Step03"),
+            child: Text('Step03'),
           )
         ]),
         content: Third(),
-        // Text("Hello World!"),
+        // Text('Hello World!'),
         isActive: true),
     FAStep(
         title: Column(children: <Widget>[
@@ -81,11 +82,11 @@ class MyHomeState extends State<MyHome> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 5),
-            child: Text("Step04"),
+            child: Text('Step04'),
           )
         ]),
-        content: Text("Hello!"),
-        // Text("Hello World 4!"),
+        content: Text('Hello!'),
+        // Text('Hello World 4!'),
         isActive: true),
     FAStep(
         title: Column(children: <Widget>[
@@ -96,10 +97,10 @@ class MyHomeState extends State<MyHome> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 5),
-            child: Text("Step05"),
+            child: Text('Step05'),
           )
         ]),
-        content: Text("Hello World5!"),
+        content: Text('Hello World5!'),
         isActive: true),
     FAStep(
         title: Column(children: <Widget>[
@@ -110,10 +111,10 @@ class MyHomeState extends State<MyHome> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 5),
-            child: Text("Step06"),
+            child: Text('Step06'),
           )
         ]),
-        content: Text("Hello World 6!"),
+        content: Text('Hello World 6!'),
         isActive: true),
     FAStep(
         title: Column(children: <Widget>[
@@ -124,10 +125,10 @@ class MyHomeState extends State<MyHome> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 5),
-            child: Text("Step07"),
+            child: Text('Step07'),
           )
         ]),
-        content: Text("Hello World7!"),
+        content: Text('Hello World7!'),
         isActive: true),
     FAStep(
         title: Column(children: <Widget>[
@@ -138,10 +139,10 @@ class MyHomeState extends State<MyHome> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 5),
-            child: Text("Step08"),
+            child: Text('Step08'),
           )
         ]),
-        content: Text("Hello World8!"),
+        content: Text('Hello World8!'),
         isActive: true),
     FAStep(
         title: Column(children: <Widget>[
@@ -152,14 +153,14 @@ class MyHomeState extends State<MyHome> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 5),
-            child: Text("Step09"),
+            child: Text('Step09'),
           )
         ]),
-        content: Text("Hello World9!"),
+        content: Text('Hello World9!'),
         isActive: true),
     // FASStep(
-    //     title: Text("Step 10 sdvjnds dvbdl fsvjnsf dnvjldsb"),
-    //     content: Text("Hello World10!"),
+    //     title: Text('Step 10 sdvjnds dvbdl fsvjnsf dnvjldsb'),
+    //     content: Text('Hello World10!'),
     //     isActive: true),
     FAStep(
         title: Column(children: <Widget>[
@@ -170,10 +171,10 @@ class MyHomeState extends State<MyHome> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 5),
-            child: Text("Step10"),
+            child: Text('Step10'),
           )
         ]),
-        content: Text("Hello World10!"),
+        content: Text('Hello World10!'),
         isActive: true)
   ];
 
@@ -183,20 +184,20 @@ class MyHomeState extends State<MyHome> {
         // Appbar
         appBar: AppBar(
           // Title
-          title: Text("Simple Material App"),
+          title: Text('Simple Material App'),
         ),
         // Body
         body: w1(context));
   }
 
   Widget w1(BuildContext context) {
-    return Scaffold(      
+    return Scaffold(
       // Body
       body: Container(
           child: FAStepper(
         // physics: ClampingScrollPhysics(),
         // Using a variable here for handling the currentStep
-        currentStep: this.currentStep,
+        currentStep: currentStep,
         // List the steps you would like to have
         titleHeight: 120,
         steps: mySteps,
@@ -215,7 +216,7 @@ class MyHomeState extends State<MyHome> {
             currentStep = step;
           });
           // Log function call
-          print("onStepTapped : " + step.toString());
+          print('onStepTapped : ' + step.toString());
         },
         onStepCancel: () {
           // On hitting cancel button, change the state
@@ -229,7 +230,7 @@ class MyHomeState extends State<MyHome> {
             }
           });
           // Log function call
-          print("onStepCancel : " + currentStep.toString());
+          print('onStepCancel : ' + currentStep.toString());
         },
         // On hitting continue button, change the state
         onStepContinue: () {
@@ -243,7 +244,7 @@ class MyHomeState extends State<MyHome> {
             }
           });
           // Log function call
-          print("onStepContinue : " + currentStep.toString());
+          print('onStepContinue : ' + currentStep.toString());
         },
       )),
     );

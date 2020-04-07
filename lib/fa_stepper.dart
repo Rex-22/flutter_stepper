@@ -324,7 +324,6 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
   }
 
   Color _circleColor(int index) {
-    final themeData = Theme.of(context);
     if (!_isDark()) {
       if (widget.steps[index].state == FAStepstate.complete) {
         return IposColors.stepCompleteColor;
@@ -458,24 +457,6 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
     );
   }
 
-  TextStyle _titleStyle(int index) {
-    final themeData = Theme.of(context);
-    final textTheme = themeData.textTheme;
-
-    assert(widget.steps[index].state != null);
-    switch (widget.steps[index].state) {
-      case FAStepstate.indexed:
-      case FAStepstate.editing:
-      case FAStepstate.complete:
-        return textTheme.body2;
-      case FAStepstate.disabled:
-        return textTheme.body2.copyWith(color: _isDark() ? _kDisabledDark : _kDisabledLight);
-      case FAStepstate.error:
-        return textTheme.body2.copyWith(color: _isDark() ? _kErrorDark : _kErrorLight);
-    }
-    return null;
-  }
-
   TextStyle _subtitleStyle(int index) {
     final themeData = Theme.of(context);
     final textTheme = themeData.textTheme;
@@ -504,7 +485,9 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
                 style: (index == widget.currentStep)
                     ? TextStyle(color: Colors.blue, fontWeight: FontWeight.w800)
                     : TextStyle(
-                        color: Colors.brown, fontWeight: FontWeight.normal), //_titleStyle(index),
+                        color: Colors.brown,
+                        fontWeight: FontWeight.normal,
+                      ), //_titleStyle(index),
                 duration: kThemeAnimationDuration,
                 curve: Curves.fastOutSlowIn,
                 child: widget.steps[index].title,
@@ -529,7 +512,9 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
                 style: (index == widget.currentStep)
                     ? TextStyle(color: Colors.blue, fontWeight: FontWeight.w800)
                     : TextStyle(
-                        color: Colors.brown, fontWeight: FontWeight.normal), //_titleStyle(index),
+                        color: Colors.brown,
+                        fontWeight: FontWeight.normal,
+                      ), //_titleStyle(index),
                 duration: kThemeAnimationDuration,
                 curve: Curves.fastOutSlowIn,
                 child: widget.steps[index].title,

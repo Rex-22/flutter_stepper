@@ -14,7 +14,7 @@ class Third extends StatelessWidget {
               size: 160.0,
               color: Colors.blue,
             ),
-            Text("Third Tab")
+            Text('Third Tab')
           ],
         ),
       ),

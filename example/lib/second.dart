@@ -14,7 +14,7 @@ class Second extends StatelessWidget {
               size: 160.0,
               color: Colors.green,
             ),
-            Text("Second Tab")
+            Text('Second Tab')
           ],
         ),
       ),
