@@ -75,14 +75,12 @@ class FAStep {
   ///
   /// The [title], [content], and [state] arguments must not be null.
   const FAStep({
-    @required this.title,
+    required this.title,
     this.subtitle,
-    @required this.content,
+    required this.content,
     this.state = FAStepstate.indexed,
     this.isActive = false,
-  })  : assert(title != null),
-        assert(content != null),
-        assert(state != null);
+  });
 
   /// The title of the step that typically describes it.
   final Widget title;
@@ -91,7 +89,7 @@ class FAStep {
   /// font size. It typically gives more details that complement the title.
   ///
   /// If null, the subtitle is not shown.
-  final Widget subtitle;
+  final Widget? subtitle;
 
   /// The content of the step that appears below the [title] and [subtitle].
   ///
@@ -128,8 +126,8 @@ class FAStepper extends StatefulWidget {
   ///
   /// The [steps], [type], and [currentStep] arguments must not be null.
   const FAStepper({
-    Key key,
-    @required this.steps,
+    Key? key,
+    required this.steps,
     this.physics,
     this.type = FAStepperType.vertical,
     this.titleIconArrange = FAStepperTitleIconArrange.column,
@@ -141,10 +139,7 @@ class FAStepper extends StatefulWidget {
     this.onStepCancel,
     this.contentPaddingWhenHorizontal = EdgeInsets.zero,
     this.controlsBuilder,
-  })  : assert(steps != null),
-        assert(type != null),
-        assert(currentStep != null),
-        assert(0 <= currentStep && currentStep < steps.length),
+  })  : assert(0 <= currentStep && currentStep < steps.length),
         super(key: key);
 
   /// The steps of the stepper whose titles, subtitles, icons always get shown.
@@ -159,7 +154,7 @@ class FAStepper extends StatefulWidget {
   ///
   /// If the stepper is contained within another scrollable it
   /// can be helpful to set this property to [ClampingScrollPhysics].
-  final ScrollPhysics physics;
+  final ScrollPhysics? physics;
 
   /// The type of stepper that determines the layout. In the case of
   /// [FAStepperType.horizontal], the content of the current step is displayed
@@ -178,17 +173,17 @@ class FAStepper extends StatefulWidget {
 
   /// The callback called when a step is tapped, with its index passed as
   /// an argument.
-  final ValueChanged<int> onStepTapped;
+  final ValueChanged<int>? onStepTapped;
 
   /// The callback called when the 'continue' button is tapped.
   ///
   /// If null, the 'continue' button will be disabled.
-  final VoidCallback onStepContinue;
+  final VoidCallback? onStepContinue;
 
   /// The callback called when the 'cancel' button is tapped.
   ///
   /// If null, the 'cancel' button will be disabled.
-  final VoidCallback onStepCancel;
+  final VoidCallback? onStepCancel;
 
   /// Padding around the content of each step
   final EdgeInsets contentPaddingWhenHorizontal;
@@ -241,14 +236,14 @@ class FAStepper extends StatefulWidget {
   /// }
   /// ```
   /// {@end-tool}
-  final ControlsWidgetBuilder controlsBuilder;
+  final ControlsWidgetBuilder? controlsBuilder;
 
   @override
   _FAStepperState createState() => _FAStepperState();
 }
 
 class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
-  List<GlobalKey> _keys;
+  late List<GlobalKey> _keys;
   final Map<int, FAStepstate> _oldStates = <int, FAStepstate>{};
 
   @override
@@ -294,7 +289,7 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildCircleChild(int index, bool oldState) {
+  Widget? _buildCircleChild(int index, bool oldState) {
     final state = oldState ? _oldStates[index] : widget.steps[index].state;
     final isDarkActive = _isDark() && widget.steps[index].isActive;
     assert(state != null);
@@ -319,8 +314,9 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
         );
       case FAStepstate.error:
         return const Text('!', style: _kStepStyle);
+      default:
+        return null;
     }
-    return null;
   }
 
   Color _circleColor(int index) {
@@ -408,10 +404,10 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
 
   Widget _buildVerticalControls() {
     if (widget.controlsBuilder != null)
-      return widget.controlsBuilder(context,
+      return widget.controlsBuilder!(context,
           onStepContinue: widget.onStepContinue, onStepCancel: widget.onStepCancel);
 
-    Color cancelColor;
+    Color? cancelColor;
 
     switch (Theme.of(context).brightness) {
       case Brightness.light:
@@ -421,8 +417,6 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
         cancelColor = Colors.white70;
         break;
     }
-
-    assert(cancelColor != null);
 
     final themeData = Theme.of(context);
     final localizations = MaterialLocalizations.of(context);
@@ -461,18 +455,16 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
     final themeData = Theme.of(context);
     final textTheme = themeData.textTheme;
 
-    assert(widget.steps[index].state != null);
     switch (widget.steps[index].state) {
       case FAStepstate.indexed:
       case FAStepstate.editing:
       case FAStepstate.complete:
-        return textTheme.caption;
+        return textTheme.caption!;
       case FAStepstate.disabled:
-        return textTheme.caption.copyWith(color: _isDark() ? _kDisabledDark : _kDisabledLight);
+        return textTheme.caption!.copyWith(color: _isDark() ? _kDisabledDark : _kDisabledLight);
       case FAStepstate.error:
-        return textTheme.caption.copyWith(color: _isDark() ? _kErrorDark : _kErrorLight);
+        return textTheme.caption!.copyWith(color: _isDark() ? _kErrorDark : _kErrorLight);
     }
-    return null;
   }
 
   Widget _buildHeaderText(int index) {
@@ -499,7 +491,7 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
                     style: _subtitleStyle(index),
                     duration: kThemeAnimationDuration,
                     curve: Curves.fastOutSlowIn,
-                    child: widget.steps[index].subtitle,
+                    child: widget.steps[index].subtitle!,
                   ),
                 ),
             ],
@@ -526,7 +518,7 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
                     style: _subtitleStyle(index),
                     duration: kThemeAnimationDuration,
                     curve: Curves.fastOutSlowIn,
-                    child: widget.steps[index].subtitle,
+                    child: widget.steps[index].subtitle!,
                   ),
                 ),
             ],
@@ -615,12 +607,12 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
                         // In the vertical case we need to scroll to the newly tapped
                         // step.
                         Scrollable.ensureVisible(
-                          _keys[i].currentContext,
+                          _keys[i].currentContext!,
                           curve: Curves.fastOutSlowIn,
                           duration: kThemeAnimationDuration,
                         );
 
-                        if (widget.onStepTapped != null) widget.onStepTapped(i);
+                        widget.onStepTapped?.call(i);
                       }
                     : null,
                 canRequestFocus: widget.steps[i].state != FAStepstate.disabled,
@@ -638,9 +630,7 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
       for (var i = 0; i < widget.steps.length; i += 1) ...<Widget>[
         InkResponse(
             onTap: widget.steps[i].state != FAStepstate.disabled
-                ? () {
-                    if (widget.onStepTapped != null) widget.onStepTapped(i);
-                  }
+                ? () => widget.onStepTapped?.call(i)
                 : null,
             canRequestFocus: widget.steps[i].state != FAStepstate.disabled,
             child: (widget.titleIconArrange == FAStepperTitleIconArrange.column)
@@ -738,14 +728,12 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
             'https://material.io/archive/guidelines/components/steppers.html#steppers-usage');
       return true;
     }());
-    assert(widget.type != null);
     switch (widget.type) {
       case FAStepperType.vertical:
         return _buildVertical();
       case FAStepperType.horizontal:
         return _buildHorizontal();
     }
-    return null;
   }
 }
 
@@ -756,7 +744,7 @@ class _TrianglePainter extends CustomPainter {
     this.color,
   });
 
-  final Color color;
+  final Color? color;
 
   @override
   bool hitTest(Offset point) => true; // Hitting the rectangle is fine enough.
@@ -779,7 +767,7 @@ class _TrianglePainter extends CustomPainter {
 
     canvas.drawPath(
       Path()..addPolygon(points, true),
-      Paint()..color = color,
+      Paint()..color = color ?? Colors.black,
     );
   }
 }

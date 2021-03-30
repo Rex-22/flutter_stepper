@@ -4,7 +4,7 @@ version: 0.0.2
 author: di phan<dipnv.fs@gmail.com>
 homepage: https://github.com/dipnv/flutter_stepper
 environment:
-  sdk: '>=2.7.0 <3.0.0'
+  sdk: '>=2.12.0 <3.0.0'
 dependencies:
   flutter:
     sdk: flutter
