@@ -59,7 +59,8 @@ const Color _kCircleActiveDark = Colors.black87;
 const Color _kDisabledLight = Colors.black38;
 const Color _kDisabledDark = Colors.white38;
 const double _kStepSize = 24.0;
-const double _kTriangleHeight = _kStepSize * 0.866025; // Triangle height. sqrt(3.0) / 2.0
+const double _kTriangleHeight =
+    _kStepSize * 0.866025; // Triangle height. sqrt(3.0) / 2.0
 
 /// A material step used in [FAStepper]. The step can have a title and subtitle,
 /// an icon within its circle, some content and a state that governs its
@@ -254,7 +255,8 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
       (int i) => GlobalKey(),
     );
 
-    for (var i = 0; i < widget.steps.length; i += 1) _oldStates[i] = widget.steps[i].state;
+    for (var i = 0; i < widget.steps.length; i += 1)
+      _oldStates[i] = widget.steps[i].state;
   }
 
   @override
@@ -262,7 +264,8 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
     super.didUpdateWidget(oldWidget);
     assert(widget.steps.length == oldWidget.steps.length);
 
-    for (var i = 0; i < oldWidget.steps.length; i += 1) _oldStates[i] = oldWidget.steps[i].state;
+    for (var i = 0; i < oldWidget.steps.length; i += 1)
+      _oldStates[i] = oldWidget.steps[i].state;
   }
 
   bool _isFirst(int index) {
@@ -298,7 +301,9 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
       case FAStepstate.disabled:
         return Text(
           '${index + 1}',
-          style: isDarkActive ? _kStepStyle.copyWith(color: Colors.black87) : _kStepStyle,
+          style: isDarkActive
+              ? _kStepStyle.copyWith(color: Colors.black87)
+              : _kStepStyle,
         );
       case FAStepstate.editing:
         return Icon(
@@ -350,8 +355,8 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
           shape: BoxShape.circle,
         ),
         child: Center(
-          child:
-              _buildCircleChild(index, oldState && widget.steps[index].state == FAStepstate.error),
+          child: _buildCircleChild(index,
+              oldState && widget.steps[index].state == FAStepstate.error),
         ),
       ),
     );
@@ -365,15 +370,17 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
       child: Center(
         child: SizedBox(
           width: _kStepSize,
-          height: _kTriangleHeight, // Height of 24dp-long-sided equilateral triangle.
+          height: _kTriangleHeight,
+          // Height of 24dp-long-sided equilateral triangle.
           child: CustomPaint(
             painter: _TrianglePainter(
               color: _isDark() ? _kErrorDark : _kErrorLight,
             ),
             child: Align(
-              alignment: const Alignment(0.0, 0.8), // 0.8 looks better than the geometrical 0.33.
-              child: _buildCircleChild(
-                  index, oldState && widget.steps[index].state != FAStepstate.error),
+              alignment: const Alignment(0.0, 0.8),
+              // 0.8 looks better than the geometrical 0.33.
+              child: _buildCircleChild(index,
+                  oldState && widget.steps[index].state != FAStepstate.error),
             ),
           ),
         ),
@@ -404,8 +411,14 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
 
   Widget _buildVerticalControls() {
     if (widget.controlsBuilder != null)
-      return widget.controlsBuilder!(context,
-          onStepContinue: widget.onStepContinue, onStepCancel: widget.onStepCancel);
+      return widget.controlsBuilder!(
+          context,
+          ControlsDetails(
+            currentStep: 0,
+            stepIndex: 0,
+            onStepContinue: widget.onStepContinue,
+            onStepCancel: widget.onStepCancel,
+          ));
 
     Color? cancelColor;
 
@@ -431,7 +444,9 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
           children: <Widget>[
             FlatButton(
               onPressed: widget.onStepContinue,
-              color: _isDark() ? themeData.backgroundColor : themeData.primaryColor,
+              color: _isDark()
+                  ? themeData.backgroundColor
+                  : themeData.primaryColor,
               textColor: Colors.white,
               textTheme: ButtonTextTheme.normal,
               child: Text(localizations.continueButtonLabel),
@@ -461,9 +476,11 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
       case FAStepstate.complete:
         return textTheme.caption!;
       case FAStepstate.disabled:
-        return textTheme.caption!.copyWith(color: _isDark() ? _kDisabledDark : _kDisabledLight);
+        return textTheme.caption!
+            .copyWith(color: _isDark() ? _kDisabledDark : _kDisabledLight);
       case FAStepstate.error:
-        return textTheme.caption!.copyWith(color: _isDark() ? _kErrorDark : _kErrorLight);
+        return textTheme.caption!
+            .copyWith(color: _isDark() ? _kErrorDark : _kErrorLight);
     }
   }
 
@@ -585,7 +602,9 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
           firstCurve: const Interval(0.0, 0.6, curve: Curves.fastOutSlowIn),
           secondCurve: const Interval(0.4, 1.0, curve: Curves.fastOutSlowIn),
           sizeCurve: Curves.fastOutSlowIn,
-          crossFadeState: _isCurrent(index) ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+          crossFadeState: _isCurrent(index)
+              ? CrossFadeState.showSecond
+              : CrossFadeState.showFirst,
           duration: kThemeAnimationDuration,
         ),
       ],
@@ -695,7 +714,8 @@ class _FAStepperState extends State<FAStepper> with TickerProviderStateMixin {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemCount: children.length,
-                itemBuilder: (BuildContext context, int index) => children[index])),
+                itemBuilder: (BuildContext context, int index) =>
+                    children[index])),
         Expanded(
           child: ListView(
             shrinkWrap: true,
